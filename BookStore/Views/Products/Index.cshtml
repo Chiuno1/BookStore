@@ -1,0 +1,131 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@*@model IEnumerable<BookStore.Models.Products>*@
+@model IPagedList<BookStore.Models.Products>
+
+@{
+    ViewBag.Title = "商品管理";
+    Layout = "~/Views/Shared/_Layout_Manager.cshtml";
+}
+
+<h2>商品管理</h2>
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <span>商品名稱查詢：</span>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input name="serching" type="submit" value="送出查詢" class="btn btn-primary btn-sm" />
+    <span class="text-danger">@ViewBag.producterr</span>
+}
+
+<p class="text-right">
+    @*@Html.ActionLink("新增商品資料", "Create", null, new { @class = "btn btn-primary" })*@
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" id="btnCreate">
+        新增商品
+    </button>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProductImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UnitsInStock)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UnitPrice)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Suppliers.SupplierName)
+            </th>
+            <th>資料管理</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <span class="d-lg-inline-block text-truncate" style="max-width: 300px;">
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </span>
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.ProductImg)" width="100" />
+            </td>
+            <td>
+                @item.UnitsInStock
+                @*@Html.DisplayFor(modelItem => item.UnitsInStock)*@
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Suppliers.SupplierName)
+            </td>
+            <td>
+                @*@Html.ActionLink("編輯", "Edit", new { id = item.ProductID }, new { @class = "btn btn-info btn-sm" }) |*@
+                @*@Html.ActionLink("管理", "Details", new { id = item.ProductID })|*@
+                <button type="button" class="btn btn-link myBtn" id="@item.ProductID" data-toggle="modal" data-target="#exampleModal">
+                    管理
+                </button>
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.ProductID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">詳細資料</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
+
+@section scripts{
+    <script>
+        $('.pagination-container').addClass("d-flex justify-content-center");
+        $('.pagination-container>ul>li').addClass("page-item");
+        $('.pagination-container a').addClass("page-link");
+
+        $('.btnDetail').click(function (evt) {
+            $('#exampleModal .modal-body').load("/Products/Details/" + evt.target.title);
+        });
+    </script>
+
+    <script>
+        $('.myBtn').click(function (evt) {
+            console.log(evt.target.id);
+            $('#exampleModalLabel').text("詳細資料");
+            $('#exampleModal .modal-body').load("Products/Details/" + evt.target.id);
+        });
+
+        $('#btnCreate').click(function () {
+            $('#exampleModalLabel').text("新增商品資料");
+            $('#exampleModal .modal-body').load("Products/Create");
+        });
+    </script>
+}

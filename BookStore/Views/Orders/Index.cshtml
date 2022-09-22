@@ -1,0 +1,98 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@*@model IEnumerable<BookStore.Models.Orders>*@
+@model IPagedList<BookStore.Models.Orders>
+
+@{
+    ViewBag.Title = "訂單總覽";
+    Layout = "~/Views/Shared/_Layout_Manager.cshtml";
+}
+
+<h2>訂單總覽</h2>
+
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get))
+{
+    <span>訂單編號查詢：</span>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input name="serching" type="submit" value="送出查詢" class="btn btn-primary btn-sm" />
+    <span class="text-danger">@ViewBag.ordererr</span>
+}
+
+<p class="text-right">
+    @*@Html.ActionLink("新增訂單資料", "Create", null, new { @class = "btn btn-primary" })*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Members.MemberAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ShipDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ShipAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PayTypes.PayTypeName)
+        </th>
+        <th>資料管理</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Members.MemberAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayTypes.PayTypeName)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.OrderID })
+                @*@Html.ActionLink("Details", "Details", new { id=item.OrderID }) |*@
+                @*@Html.ActionLink("刪除", "Delete", new { id = item.OrderID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
+
+@section scripts{
+    <script>
+        $('.pagination-container').addClass("d-flex justify-content-center");
+        $('.pagination-container>ul>li').addClass("page-item");
+        $('.pagination-container a').addClass("page-link");
+
+        $('.btnDetail').click(function (evt) {
+            /*console.log("/Members/Details/" + evt.target.title);*/
+            $('#exampleModal .modal-body').load("/Orders/Details/" + evt.target.title);
+        });
+    </script>
+}

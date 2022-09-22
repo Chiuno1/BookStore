@@ -1,0 +1,55 @@
+﻿@model BookStore.Models.Products
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "";
+}
+
+
+<div class="card border-info">
+
+    <div class="card-header bg-info text-white">
+        <h3>@Html.DisplayFor(model => model.ProductName)</h3>
+    </div>
+
+    <div class="card-body row">
+        
+        <div class="col-md-4">
+            @{
+                var photo = Model.ProductImg == null ? "defaultPhoto.jpeg" : Model.ProductImg;
+            }
+
+            @*<img src="~/ProductImg/@photo" class="img-thumbnail" />*@
+            <img src="@Html.DisplayFor(model => model.ProductImg)" class="img-thumbnail" width="200" />
+        </div>
+
+        <div class="col">
+
+            <p class="text-start">
+                @Html.DisplayNameFor(model => model.UnitsInStock)
+                <br />
+                @Html.DisplayFor(model => model.UnitsInStock)
+            </p>
+
+            <p class="text-start">
+                @Html.DisplayNameFor(model => model.UnitPrice)
+                <br />
+                @Html.DisplayFor(model => model.UnitPrice)
+            </p>
+
+            <p class="text-start">
+                @Html.DisplayNameFor(model => model.Suppliers.SupplierName)
+                <br />
+                @Html.DisplayFor(model => model.Suppliers.SupplierName)
+            </p>
+
+        </div>
+    
+    </div>
+
+    <p class="text-md-right">
+        @Html.ActionLink("修改", "Edit", new { id = Model.ProductID }) |
+        @Html.ActionLink("回上一頁", "Index")
+    </p>
+
+</div>

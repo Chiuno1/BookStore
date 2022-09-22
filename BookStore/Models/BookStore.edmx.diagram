@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ed75fabfae564fc79623d4f65f1f21e0" Name="Diagram1">
+        <EntityTypeShape EntityType="BookStoreModel.Administrator" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Comments" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Members" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.OrderDetails" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Orders" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.PayTypes" Width="1.5" PointX="3.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Products" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Suppliers" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="BookStoreModel.FK_Comment_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_Comment_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_Order_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_OrderDetails_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_OrderDetails_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_Orders_PayTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.FK_Product_Supplier" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

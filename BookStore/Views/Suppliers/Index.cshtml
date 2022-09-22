@@ -1,0 +1,86 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@*@model IEnumerable<BookStore.Models.Suppliers>*@
+@model IPagedList<BookStore.Models.Suppliers>
+
+@{
+    ViewBag.Title = "供應商總覽";
+    Layout = "~/Views/Shared/_Layout_Manager.cshtml";
+}
+
+<h2>供應商列表</h2>
+
+@using (Html.BeginForm("Index", "Suppliers", FormMethod.Get))
+{
+    <span>供應商名稱查詢：</span>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input name="serching" type="submit" value="送出查詢" class="btn btn-primary btn-sm" />
+    <span class="text-danger">@ViewBag.suppliererr</span>
+}
+
+<p class="text-right">
+    @Html.ActionLink("新增供應商資料", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SupplierID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SupplierAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SupplierPassword)
+        </th>
+        <th>資料管理</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierPassword)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.SupplierID }, new { @class = "btn btn-info btn-sm" }) @*|
+                    @Html.ActionLink("Details", "Details", new { id=item.SupplierID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.SupplierAccount })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
+
+@section scripts{
+    <script>
+        $('.pagination-container').addClass("d-flex justify-content-center");
+        $('.pagination-container>ul>li').addClass("page-item");
+        $('.pagination-container a').addClass("page-link");
+
+        $('.btnDetail').click(function (evt) {
+            $('#exampleModal .modal-body').load("/Suppliers/Details/" + evt.target.title);
+        });
+    </script>
+}

@@ -1,0 +1,79 @@
+﻿@model BookStore.Models.Members
+
+@{
+//ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>
+
+<div>
+    <h4>Members</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+    </dl>
+</div>*@
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberAccount }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+<div class="p-3">
+
+    <div class="card border-info">
+        <div class="card-header bg-info text-white">
+            <h3>@Html.DisplayFor(model => model.MemberName)</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>信箱 : @Html.DisplayFor(model => model.MemberAccount)</h4>
+                    <h4>聯絡電話 : @Html.DisplayFor(model => model.Phone)</h4>
+                    <h4>地址 : @Html.DisplayFor(model => model.Address)</h4>
+                </div>
+                @*<div class="col-md-4">
+                    @{
+                        var photo = Model.MemberPhotoFile == null ? "defaultPhoto.jpeg" : Model.MemberPhotoFile;
+                    }
+
+                    <img src="~/MemberPhoto/@photo" class="img-thumbnail" />
+
+                </div>*@
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

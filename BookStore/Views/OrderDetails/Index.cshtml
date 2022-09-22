@@ -1,0 +1,98 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@*@model IEnumerable<BookStore.Models.OrderDetails>*@
+@model IPagedList<BookStore.Models.OrderDetails>
+
+@{
+    ViewBag.Title = "訂單明細總覽";
+    Layout = "~/Views/Shared/_Layout_Manager.cshtml";
+}
+
+<h2>訂單明細總覽</h2>
+
+@using (Html.BeginForm("Index", "OrderDetails", FormMethod.Get))
+{
+    <span>訂單編號查詢：</span>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input name="serching" type="submit" value="送出查詢" class="btn btn-primary btn-sm" />
+    <span class="text-danger">@ViewBag.orderdetailerr</span>
+}
+
+@*<p class="text-right">
+        @Html.ActionLink("新增訂單明細資料", "Create", null, new { @class = "btn btn-primary" })
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Orders.OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Products.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Orders.MemberAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Products.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SellingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Subtotal)
+        </th>
+        <th>資料管理</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orders.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orders.MemberAccount)
+            </td>
+            <td class="d-inline-block text-truncate" style="max-width:150px">
+                @Html.DisplayFor(modelItem => item.Products.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subtotal)
+            </td>
+
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.Orders.OrderID /* id=item.PrimaryKey */ }) @*|
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
+
+@section scripts{
+    <script>
+        $('.pagination-container').addClass("d-flex justify-content-center");
+        $('.pagination-container>ul>li').addClass("page-item");
+        $('.pagination-container a').addClass("page-link");
+
+        $('.btnDetail').click(function (evt) {
+            $('#exampleModal .modal-body').load("/OrderDetails/Details/" + evt.target.title);
+        });
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int c = 4;
+
+    if (Session["mbuser"] != null)
+    {
+        Layout = "~/Views/Shared/_Layout_Member.cshtml";
+    }
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+@*<h2>前台首頁</h2>*@
+
+<div class="jumbotron text-white">
+    <h2 class="display-4 text-shadow "><strong>XX網路書城</strong></h2>
+    <hr>
+    <h5 class="bg-light text-danger p-2 rounded">慎防詐騙電話，本書城絕對不會主動致電要求至ATM或網路銀行進行任何操作!!!</h5>
+    <a class="btn btn-warning btn-lg" href="/Home/ProductList" role="button">了解更多</a>
+</div>
+
+<h4>最新上架@*@(c)*@</h4>
+
+<div class="row">
+    <div class="col-12">
+        @Html.Action("_ProductPhotoShow")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @Html.Action("_ProductList", new { itemCount = c })
+        <div class="text-right">@Html.ActionLink("查看更多...", "ProductList")</div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/BookStoreJS.js"></script>
+}

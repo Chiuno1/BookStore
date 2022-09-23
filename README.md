@@ -1,4 +1,4 @@
-# BookStore 專題成品功能畫面
+# BookStore 專題成品功能畫面呈現
 
 ### 首頁
 ![image](https://user-images.githubusercontent.com/113997297/191876728-f53fb8d7-128d-4a14-bc74-c13c0583f768.png)

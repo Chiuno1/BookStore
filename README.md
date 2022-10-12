@@ -1,5 +1,8 @@
 # BookStore 專題成品功能畫面呈現
 
+## 資料庫關聯圖
+![image](https://user-images.githubusercontent.com/113997297/195240176-f9f39d69-5d03-420b-bfa3-b8db1fe22d20.png)
+
 ### 功能描述:
 ### 1. 會員註冊、登入及登出之功能
 ### 2. 購物車:可修改購買商品及訂購數量

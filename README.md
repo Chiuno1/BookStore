@@ -15,7 +15,7 @@
 ## 商品名稱搜尋功能
 ![image](https://user-images.githubusercontent.com/113997297/191876821-79d3ae99-ef54-4c94-883e-65319f0d2e00.png)
 
-### 註冊會員
+## 註冊會員
 ![image](https://user-images.githubusercontent.com/113997297/191876862-9894ea79-aeb6-42a0-ab80-8ce2ed35d257.png)
 
 ## 登入
